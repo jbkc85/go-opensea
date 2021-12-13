@@ -1,12 +1,23 @@
 package opensea
 
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
+
+const (
+	COLLECTION_ASSETS_ENDPOINT = "assets"
+)
+
 type AssetsResponse struct {
 	Assets []Asset `json:"assets"`
 }
 
 type Asset struct {
+	Collection           Collection    `json:"collection"`
+	Contract             AssetContract `json:"asset_contract"`
 	ID                   int64         `json:"id"`
-	TokenID              string        `json:"token_id"`
 	NumSales             int           `json:"num_sales"`
 	BackgroundColor      string        `json:"background_color"`
 	ImageURL             string        `json:"image_url"`
@@ -17,8 +28,9 @@ type Asset struct {
 	Name                 string        `json:"name"`
 	Description          string        `json:"description"`
 	ExternalLink         string        `json:"external_link"`
-	Contract             AssetContract `json:"asset_contract"`
 	Permalink            string        `json:"permalink"`
+	TokenID              string        `json:"token_id"`
+	TokenMetadata        string        `json:"token_metadata"`
 	Traits               []AssetTraits `json:"traits"`
 }
 
@@ -54,4 +66,21 @@ type AssetTraits struct {
 	MaxValue    int64       `jsson:"max_value"`
 	Count       int64       `json:"trait_count"`
 	Order       string      `json:"order"`
+}
+
+func (c *Client) GetCollectionAssets(collection string, offset int) []Asset {
+	var assetsResponse AssetsResponse
+	response := c.apiRequest(
+		fmt.Sprintf(
+			"%s?order_direction=desc&limit=50&offset=%d&collection=%s",
+			COLLECTION_ASSETS_ENDPOINT,
+			offset,
+			collection,
+		),
+	)
+	err := json.Unmarshal(response, &assetsResponse)
+	if err != nil {
+		log.Fatalf("[ERROR] %s", err)
+	}
+	return assetsResponse.Assets
 }
