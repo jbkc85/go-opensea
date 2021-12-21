@@ -1,3 +1,5 @@
+![https://shields.io/badge/metamask-0x9a8f79d5Db99e717545E49272729511Af471cA4c-orange](https://shields.io/badge/metamask-0x9a8f79d5Db99e717545E49272729511Af471cA4c-orange "Metamask Wallet Address")
+
 # go-opensea
 
 Golang Package for Opensea API Access and Use
