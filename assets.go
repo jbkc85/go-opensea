@@ -16,6 +16,7 @@ type AssetsResponse struct {
 
 type Asset struct {
 	Collection           Collection    `json:"collection"`
+	Creator              Creator       `json:"creator"`
 	Contract             AssetContract `json:"asset_contract"`
 	ID                   int64         `json:"id"`
 	NumSales             int           `json:"num_sales"`
@@ -31,7 +32,7 @@ type Asset struct {
 	Permalink            string        `json:"permalink"`
 	TokenID              string        `json:"token_id"`
 	TokenMetadata        string        `json:"token_metadata"`
-	Traits               []AssetTraits `json:"traits"`
+	Traits               []AssetTrait  `json:"traits"`
 }
 
 type AssetContract struct {
@@ -59,7 +60,7 @@ type AssetContract struct {
 	PayoutAddress               string `json:"payout_address"`
 }
 
-type AssetTraits struct {
+type AssetTrait struct {
 	Type        string      `json:"trait_type"`
 	Value       interface{} `json:"value"`
 	DisplayType string      `json:"display_type"`
