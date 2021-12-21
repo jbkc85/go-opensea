@@ -10,6 +10,10 @@ const (
 	COLLECTION_ENDPOINT = "collection"
 )
 
+type collectionResponse struct {
+	Collection Collection `json:"collection"`
+}
+
 type Collection struct {
 	BannerImageURL              string            `json:"banner_image_url"`
 	ChatURL                     string            `json:"chat_url"`
@@ -43,7 +47,7 @@ type Collection struct {
 	WikiURL                     string            `json:"wiki_url"`
 }
 
-type CollectionStatsResponse struct {
+type collectionStatsResponse struct {
 	CollectionStats CollectionStats `json:"stats"`
 }
 
@@ -71,8 +75,24 @@ type CollectionStats struct {
 	FloorPrice            float64 `json:"floor_price"`
 }
 
+func (c *Client) GetCollection(collection string) Collection {
+	var apiResponse collectionResponse
+	response := c.apiRequest(
+		fmt.Sprintf(
+			"%s/%s",
+			COLLECTION_ENDPOINT,
+			collection,
+		),
+	)
+	err := json.Unmarshal(response, &apiResponse)
+	if err != nil {
+		log.Fatalf("[ERROR] %s", err)
+	}
+	return apiResponse.Collection
+}
+
 func (c *Client) GetCollectionStats(collection string) CollectionStats {
-	var collectionStatsResponse CollectionStatsResponse
+	var apiResponse collectionStatsResponse
 	response := c.apiRequest(
 		fmt.Sprintf(
 			"%s/%s/stats",
@@ -80,9 +100,9 @@ func (c *Client) GetCollectionStats(collection string) CollectionStats {
 			collection,
 		),
 	)
-	err := json.Unmarshal(response, &collectionStatsResponse)
+	err := json.Unmarshal(response, &apiResponse)
 	if err != nil {
 		log.Fatalf("[ERROR] %s", err)
 	}
-	return collectionStatsResponse.CollectionStats
+	return apiResponse.CollectionStats
 }
