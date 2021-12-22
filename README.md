@@ -1,4 +1,4 @@
-![https://shields.io/badge/metamask-0x9a8f79d5Db99e717545E49272729511Af471cA4c-orange](https://shields.io/badge/metamask-0x9a8f79d5Db99e717545E49272729511Af471cA4c-orange "Metamask Wallet Address")
+[![https://shields.io/badge/metamask-0x9a8f79d5Db99e717545E49272729511Af471cA4c-orange](https://shields.io/badge/metamask-0x9a8f79d5Db99e717545E49272729511Af471cA4c-orange "Metamask Wallet Address")](https://etherscan.io/address/0x9a8f79d5db99e717545e49272729511af471ca4c)
 
 # go-opensea
 
@@ -34,5 +34,3 @@ func main() {
 # Authors
 
 * Jason Cameron <jbkc85@gmail.com>
-
-If you wish to support or 'say thanks' always accepting donations in ETH or Metamask Wallet currency at `0x9a8f79d5Db99e717545E49272729511Af471cA4c`
